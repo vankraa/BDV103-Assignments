@@ -13,8 +13,21 @@ jobs:
               with:
                 node-version: '20'           
             - run: npm install
-            - run: npm run lint
-            - run: npm run check-types
+            - name: lint
+              run: npm run lint
+            - name: Fix Linting Errors
+              if: failure() 
+              run: npm run fix-lint
+
+    check_types:
+      runs-on: ubuntu-latest
+      steps:
+          - uses: actions/checkout@v4
+          - uses: actions/setup-node@v4
+            with:
+              node-version: '20'           
+          - run: npm install
+          - run: npm run check-types
     
     testing:
         runs-on: ubuntu-latest
