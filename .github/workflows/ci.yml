@@ -14,11 +14,18 @@ jobs:
                 node-version: '20'           
             - run: npm install
             - name: lint
+              id: lint
               run: npm run lint
+              continue-on-error: true
             - name: Fix Linting Errors
-              if: failure() 
+              if: ${{ steps.lint.outcome != 'success'}}
+              id: fix_lint
               run: npm run fix-lint
-            - uses: stefanzweifel/git-auto-commit-action@v5
+            - name: Commit Changes 
+              if: ${{ steps.fix_lint.outputs.changes_detected == 'true'}}
+              uses: stefanzweifel/git-auto-commit-action@v5
+              with:
+                commit_message: Apply linting auto-fix changes.
 
     check_types:
       runs-on: ubuntu-latest
