@@ -8,7 +8,7 @@
     "lint": "eslint ./**/*.ts",
     "fix-lint": "eslint --fix ./**/*.ts",
     "check-types": "tsc --noEmit",
-    "test": "vitest"
+    "test": "vitest --config ./vitest.config.mts"
   },
   "keywords": [],
   "author": "",
@@ -28,6 +28,7 @@
     "@types/koa-qs": "~2.0.3",
     "eslint": "^8",
     "eslint-config-love": "^52",
+    "mongodb-memory-server": "^9.3.0",
     "typescript": "^5",
     "vitest": "^1.6.0"
   }
